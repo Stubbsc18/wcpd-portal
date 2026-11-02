@@ -13,7 +13,16 @@
 <div class="eyebrow">WEST CITY POLICE DEPARTMENT / HEADQUARTERS</div>
 <h1>Headquarters Decisions</h1>
 <p>Official public record of Headquarters policies, appointments, commendations, and administrative decisions. Only authorized, published decisions should appear here.</p>
-<option value="all">All decision types</option>
+<div class="toolbar">
+  <input id="search" type="search" placeholder="Search by reference, subject, or keyword..." aria-label="Search decisions">
+  <select id="filter" aria-label="Filter by decision type">
+    <option value="all">All decision types</option>
+    <option value="Policy">Policy</option>
+    <option value="Appointment">Appointment</option>
+    <option value="Commendation & Recognition">Commendation & Recognition</option>
+    <option value="Administrative">Administrative</option>
+  </select>
+</div>
 <div id="count" class="count"></div><section id="records" aria-live="polite"></section>
 </main>
 <footer> 
