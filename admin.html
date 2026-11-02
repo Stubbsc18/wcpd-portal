@@ -67,5 +67,58 @@
       </p>
     </div>
   </main>
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script>
+  const statusText = document.getElementById("status");
+  const loginBtn = document.getElementById("loginBtn");
+
+  // Uses the public Supabase configuration.
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  loginBtn.addEventListener("click", async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    statusText.textContent = "Signing in...";
+    loginBtn.disabled = true;
+
+    try {
+      const { data, error } =
+        await client.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if (error) throw error;
+
+      const { data: admin, error: adminError } = await client
+        .from("portal_admins")
+        .select("user_id")
+        .eq("user_id", data.user.id)
+        .maybeSingle();
+
+      if (adminError) throw adminError;
+
+      if (!admin) {
+        await client.auth.signOut();
+        statusText.textContent =
+          "Access denied. You are not an authorized WCPD administrator.";
+        return;
+      }
+
+      statusText.textContent =
+        "Access granted. Welcome to WCPD Administration.";
+    } catch (error) {
+      statusText.textContent = error.message;
+    } finally {
+      loginBtn.disabled = false;
+    }
+  });
+</script>
 </body>
 </html>
