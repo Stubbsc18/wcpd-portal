@@ -16,19 +16,13 @@
 <div class="toolbar"><input id="search" type="search" placeholder="Search by reference, subject, or keyword…" aria-label="Search decisions"><select id="filter" aria-label="Filter by decision type"><option value="">All decision types</option><option>Policy</option><option>Appointment</option><option>Commendation & Recognition</option><option>Administrative</option></select></div>
 <div id="count" class="count"></div><section id="records" aria-live="polite"></section>
 </main>
-<footer>© 2026 West City Police Department · WCPD Portal · Public Headquarters Records</footer>
-<script>
-// EDIT THIS LIST to publish official HQ decisions. Replace example entries after verification.
-const decisions = [
-  {reference:'HQ-2026-001',type:'Policy',subject:'Establishment of the Official WCPD Rulebook and Guidelines',summary:'Headquarters authorized the creation of a department rulebook and guidelines to establish standardized expectations for conduct, operations, ranks, discipline, and accountability.',issuedBy:'Colin',date:'2026-11-02',document:''},
-  {reference:'HQ-2026-002',type:'Commendation & Recognition',subject:'Medal of Honor',summary:'Headquarters recognized Colin for contributions to the early development of the department’s Discord server. Authorization attributed to the Chief of Police; confirm final wording before publication.',issuedBy:'Colin',date:'2026-11-02',document:''}
-];
-const records=document.getElementById('records'),count=document.getElementById('count');
-function render(){const query=document.getElementById('search').value.trim().toLowerCase(),type=document.getElementById('filter').value;const visible=decisions.filter(d=>(!type||d.type===type)&&[d.reference,d.type,d.subject,d.summary,d.issuedBy].join(' ').toLowerCase().includes(query));records.replaceChildren();count.textContent=`Showing ${visible.length} of ${decisions.length} decisions`;if(!visible.length){const e=document.createElement('div');e.className='empty';e.textContent='No decisions match your search.';records.append(e);return;}for(const d of visible){const card=document.createElement('article');card.className='decision';const top=document.createElement('div');top.className='top';const ref=document.createElement('span');ref.className='ref';ref.textContent=d.reference;const badge=document.createElement('span');badge.className='pill';badge.textContent=d.type;top.append(ref,badge);const title=document.createElement('h2');title.textContent=d.subject;const summary=document.createElement('p');summary.textContent=d.summary;const meta=document.createElement('div');meta.className='meta';for(const value of [`Issued by: ${d.issuedBy}`,`Published: ${d.date}`]){const span=document.createElement('span');span.textContent=value;meta.append(span);}card.append(top,title,summary,meta);if(d.document&&/^https:\/\//.test(d.document)){const a=document.createElement('a');a.className='doc';a.href=d.document;a.target='_blank';a.rel='noopener noreferrer';a.textContent='View Official Document ↗';card.append(a);}records.append(card);}}
-document.getElementById('search').addEventListener('input',render);document.getElementById('filter').addEventListener('change',render);render();
-</script>
+<footer> 
+ © 2026 West City Police Department · WCPD Portal · Public Headquarters Records
+</footer>
+  
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="supabase-config.js"></script>
 <script src="hq-decisions-data.js"></script>
+  
 </body>
 </html>
