@@ -10,7 +10,7 @@ async function loadHQDecisions() {
   const { data, error } = await supabaseClient
     .from("hq_decisions_managed")
     .select("*")
-    .eq("status", "Published")
+    .not("published_at", "is", null)
     .order("published_at", { ascending: false });
 
   if (error) {
@@ -33,7 +33,7 @@ async function loadHQDecisions() {
       ].join(" ").toLowerCase();
 
       return content.includes(query) &&
-        (type === "all" || type === item.decision_type);
+       (type === "all" || type === item.type);
     });
 
     count.textContent =
