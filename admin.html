@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WCPD | Administration</title>
+  <style>
+    body {
+      margin: 0;
+      background: #080c13;
+      color: #eef2f8;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 22px;
+      background: #111923;
+      border-bottom: 1px solid #273344;
+      font-weight: bold;
+    }
+    main {
+      max-width: 560px;
+      margin: 70px auto;
+      padding: 24px;
+    }
+    .panel {
+      padding: 28px;
+      background: #121923;
+      border: 1px solid #273344;
+      border-radius: 12px;
+    }
+    input, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin: 9px 0;
+      border-radius: 6px;
+    }
+    input {
+      background: #0b1320;
+      color: white;
+      border: 1px solid #34445a;
+    }
+    button {
+      background: #448cf5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .muted { color: #9aa9bd; }
+  </style>
+</head>
+<body>
+  <header>🛡️ WCPD PORTAL | ADMINISTRATION</header>
+  <main>
+    <div class="panel">
+      <h1>Headquarters Administration</h1>
+      <p class="muted">Authorized personnel only.</p>
+      <h2>Administrator Sign In</h2>
+      <input type="email" id="email"
+             placeholder="Administrator email">
+      <input type="password" id="password"
+             placeholder="Password">
+      <button id="loginBtn">Sign In</button>
+      <p class="muted" id="status">
+        Authentication integration coming next.
+      </p>
+    </div>
+  </main>
+</body>
+</html>
