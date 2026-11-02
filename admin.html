@@ -75,10 +75,7 @@
   const loginBtn = document.getElementById("loginBtn");
 
   // Uses the public Supabase configuration.
-  const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+ const client = supabaseClient;
 
   loginBtn.addEventListener("click", async () => {
     const email = document.getElementById("email").value.trim();
