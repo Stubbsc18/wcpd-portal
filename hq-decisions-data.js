@@ -33,7 +33,7 @@ async function loadHQDecisions() {
       ].join(" ").toLowerCase();
 
       return content.includes(query) &&
-       (type === "all" || type === item.type);
+     (type === "all" || type === item.decision_type);
     });
 
     count.textContent =
