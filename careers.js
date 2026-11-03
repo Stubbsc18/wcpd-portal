@@ -1,0 +1,9 @@
+(()=>{'use strict';
+const root=document.getElementById('careerListings'),notice=document.getElementById('careerNotice');
+if(!root)return;
+let client;
+try{client=window.supabaseClient||(window.supabase&&window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY));if(!client)throw Error('Supabase configuration unavailable');}catch(e){root.textContent='Recruitment listings are temporarily unavailable.';return;}
+function node(tag,cls,content){const el=document.createElement(tag);if(cls)el.className=cls;if(content!==undefined)el.textContent=content;return el;}
+async function refresh(){const {data,error}=await client.from('career_openings').select('id,title,division,description,requirements,application_url,status,created_at').eq('published',true).order('created_at',{ascending:false});if(error){root.replaceChildren(node('div','tile','Unable to load recruitment listings right now.'));return;}root.replaceChildren();if(!data.length){const box=node('div','tile');box.append(node('h3','', 'No current openings'),node('p','','Please check back for future recruitment opportunities.'));root.append(box);return;}for(const job of data){const box=node('div','tile');box.append(node('h3','',job.title),node('p','',job.division+' · '+job.status),node('p','',job.description));if(job.requirements){box.append(node('p','', 'Requirements: '+job.requirements));}if(job.status==='Open'&&job.application_url){try{const url=new URL(job.application_url);if(['https:','http:'].includes(url.protocol)){const a=node('a','','Apply Now →');a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';box.append(a);}}catch(e){}}else if(job.status==='Closed'){box.append(node('span','','Applications Closed'));}root.append(box);}}
+refresh();setInterval(refresh,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+})();
