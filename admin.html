@@ -33,3 +33,4 @@ async function loadCareers(){const {data,error}=await client.from('career_openin
 
 (async()=>{try{const {data:{session}}=await client.auth.getSession();if(session)await showDashboard();}catch(e){setStatus('Initialization error: '+e.message,true);}})();
 </script></body></html>
+
